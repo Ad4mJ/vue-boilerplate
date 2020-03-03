@@ -2,6 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
+      - '!master'
       - feature/*
       - bugfix/*
 
@@ -17,11 +18,11 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test
-        run: npm run test
+        run: npm run test:unit
       - name: Lint
         run: npm run lint
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: build
-          path: build
+          path: dist
