@@ -10,8 +10,9 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup key
-        uses: ./
+      - uses: webfactory/ssh-agent@v0.2.0
         with:
-            ssh-private-key: ${{ SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install Dependencies
+        run: yarn install
