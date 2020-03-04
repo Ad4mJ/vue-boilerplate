@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-        - name: Check Access
-        - run: ssh -T git@github.com
 
       - name: Add ssh private key to the server
         run: |
@@ -21,6 +19,9 @@ jobs:
           echo -n "${{ secrets.SSH_KEY_PRIVATE }}" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           stat $HOME/.ssh/id_rsa
+
+      - name: Check Access
+      - run: ssh -T git@github.com
 
       - name: Install Dependencies
         run: yarn install
