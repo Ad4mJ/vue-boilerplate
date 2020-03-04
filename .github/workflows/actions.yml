@@ -10,21 +10,16 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - actions/checkout@v1
-      # Make sure the @v0.2.0 matches the current version of the
-      # action 
-      - uses: webfactory/ssh-agent@v0.2.0
-        with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      - name: Check Access
-        run: ssh -T git@github.com
+      - uses: actions/checkout@v1
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn
 
       - name: Build
         run: yarn build
 
       - name: Test
         run: yarn test:unit
+      - uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
