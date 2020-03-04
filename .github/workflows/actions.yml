@@ -10,15 +10,12 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Add ssh private key to the server
-        run: |
-          mkdir -p $HOME/.ssh/
-          chmod 700 $HOME/.ssh/
-          echo -n "${{ secrets.SSH_KEY_PRIVATE }}" > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
-          stat $HOME/.ssh/id_rsa
+      - actions/checkout@v1
+      # Make sure the @v0.2.0 matches the current version of the
+      # action 
+      - uses: webfactory/ssh-agent@v0.2.0
+        with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
       - name: Check Access
         run: ssh -T git@github.com
