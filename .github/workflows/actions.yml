@@ -20,5 +20,6 @@ jobs:
 
       - name: Test
         run: yarn test:unit
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
