@@ -10,7 +10,7 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - use s: actions/checkout@v1
+      - uses: actions/checkout@v1
       - name: Setup SSH Keys and known_hosts
         env:
             SSH_AUTH_SOCK: /tmp/ssh_agent.sock
