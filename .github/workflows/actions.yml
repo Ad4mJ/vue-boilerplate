@@ -1,28 +1,22 @@
-name: PR Build & Test
+name: PR CI
 on:
   push:
     branches:
-      - '!master'
       - 'feature/*'
       - 'bugfix/*'
 
 jobs:
-  build:
-    name: Build
+  buildAndTest:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - uses: actions/checkout@v1
+
       - name: Install Dependencies
-        run: npm install
+        run: yarn
+
       - name: Build
-        run: npm run build
+        run: yarn build
+
       - name: Test
-        run: npm run test:unit
-      - name: Lint
-        run: npm run lint
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: build
-          path: dist
+        run: yarn test:unit --watchAll=false
