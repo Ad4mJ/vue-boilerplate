@@ -12,13 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Setup key
-        uses: ./
-        with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Add ssh private key to the server
+        run: |
+          mkdir -p $HOME/.ssh/
+          chmod 700 $HOME/.ssh/
+          echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          stat $HOME/.ssh/id_rsa
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn install
 
       - name: Build
         run: yarn build
