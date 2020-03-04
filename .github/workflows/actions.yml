@@ -21,7 +21,7 @@ jobs:
           stat $HOME/.ssh/id_rsa
           
       - name: Check Access
-      - run: ssh -T git@github.com
+        run: ssh -T git@github.com
 
       - name: Install Dependencies
         run: yarn install
