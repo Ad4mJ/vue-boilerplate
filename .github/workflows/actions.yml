@@ -12,7 +12,13 @@ jobs:
     steps:
       - uses: webfactory/ssh-agent@v0.2.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_KEY_PRIVATE }}
 
       - name: Install Dependencies
         run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test:unit
